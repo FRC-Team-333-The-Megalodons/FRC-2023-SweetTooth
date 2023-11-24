@@ -11,7 +11,6 @@ public class GoHome extends CommandBase {
 
   private final Pivot m_pivot;
 
-  /** Creates a new PivotArm. */
   public GoHome(Pivot pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_pivot = pivot;
@@ -25,9 +24,8 @@ public class GoHome extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pivot.pivotHome();
+    m_pivot.goHome();
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -37,6 +35,6 @@ public class GoHome extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_pivot.isHome();
+    return false;//m_pivot.isHome();
   }
 }

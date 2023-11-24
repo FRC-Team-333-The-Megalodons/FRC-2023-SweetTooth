@@ -6,37 +6,33 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pivot;
-
 public class GoIntake extends CommandBase {
-
   private final Pivot m_pivot;
 
-  /** Creates a new PivotArm. */
   public GoIntake(Pivot pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_pivot = pivot;
     addRequirements(m_pivot);
   }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_pivot.pivotToIntake();
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    m_pivot.noPivot();
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return m_pivot.atIntakeSetpoint();
-  }
+  
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {}
+  
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+      m_pivot.goIntake();
+    }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+      m_pivot.noPivot();
+    }
+  
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+      return false;
+    }
 }

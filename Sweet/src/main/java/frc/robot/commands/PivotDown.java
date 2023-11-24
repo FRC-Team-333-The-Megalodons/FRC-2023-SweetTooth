@@ -3,39 +3,34 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-
+import frc.robot.subsystems.Pivot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
 
-public class EjectCube extends CommandBase {
+public class PivotDown extends CommandBase {
+  /** Creates a new PivotDown. */
+  private final Pivot s_Pivot;
 
-  private final Intake m_intake;
-  private final double value;
-
-  /** Creates a new EjectCube. */
-  public EjectCube(Intake intake, double value) {
+  public PivotDown(Pivot pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_intake = intake;
-    this.value = value;
-    addRequirements(intake);
+  addRequirements(pivot);
+  this.s_Pivot = pivot;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intake.resetIntakeEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.outake(value);
+    s_Pivot.pivotDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.notake();
+    s_Pivot.noPivot();
   }
 
   // Returns true when the command should end.

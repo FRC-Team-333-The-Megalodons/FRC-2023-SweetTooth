@@ -9,11 +9,12 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
+import frc.robot.commands.TeleopSwerve;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
 
-    public static final class SwerveDrive {
+    public static final class Swerve {
         public static final int pigeonID = 2;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
@@ -94,7 +95,7 @@ public final class Constants {
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 21;
             public static final int canCoderID = 31;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(200.126953125);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(201.69);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -104,7 +105,7 @@ public final class Constants {
             public static final int driveMotorID = 12;
             public static final int angleMotorID = 22;
             public static final int canCoderID = 32;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(135.52734375);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(133.76);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -114,7 +115,7 @@ public final class Constants {
             public static final int driveMotorID = 13;
             public static final int angleMotorID = 23;
             public static final int canCoderID = 33;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(179.6484375);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(183.39);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -124,9 +125,12 @@ public final class Constants {
             public static final int driveMotorID = 14;
             public static final int angleMotorID = 24;
             public static final int canCoderID = 34;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(193.0078125);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(196.08);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+        }
+
+        public void setDefaultCommand(TeleopSwerve teleopSwerve) {
         }
     }
 
@@ -137,8 +141,8 @@ public final class Constants {
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
         public static final double kPXController = 1;
-        public static final double kPYController = 0.5;
-        public static final double kPThetaController = 0.5;
+        public static final double kPYController = 1;
+        public static final double kPThetaController = 1;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
@@ -154,29 +158,20 @@ public final class Constants {
         public static final double mobilityChargeDistance = Units.inchesToMeters(stickDeadband);
         public static final double mobilityDistance = Units.inchesToMeters(stickDeadband);
     }
-
     public static final class Intake {
         public static final class IntakeConstants { 
-            public static final double intakeSpeed = 0.3;
-            public static final double midtakeSpeed = 0.45;
-            public static final double hightakeSpeed = 0.5;
-            
+            public static final double intakeSpeed = 0.334;
+            public static final double outtakeSpeed = 0.333;
             public static final class PivotConstants {
-                public static final double pivotKP = 1.5;
-                public static final double pivotKI = 0;
-                public static final double pivotkKD = 0;
 
-                public static final double pivotSpeed = 0.2;
-                public static final double homeSetpoint = 0.036;
-                public static final double intakeSetpoint = 0.44;
-                public static final double midSetpoint = 0.06;
-                public static final double hybridSetpoint = 0.4;
-                public static final double pivotOffset = 0.5883560;
+                public static final double pivotSpeed = 0.254;
+                public static final double homeSetpoint = 0.0563;
+                public static final double intakeSetpoint = 0.4242;
             }
-
-            public static final class IntakeIDs {
-                public static final int intakeID = 4;
-                public static final int pivotID = 3;
+            public static final class IntakeIDs{
+            public static final int intakeID = 4;
+            public static final int pivotID = 3;
+//*kys */
             }
         }
     }

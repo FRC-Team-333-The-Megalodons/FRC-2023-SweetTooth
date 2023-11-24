@@ -28,6 +28,10 @@ public class TeleopSwerve extends CommandBase {
         this.robotCentricSup = robotCentricSup;
     }
 
+    public TeleopSwerve(frc.robot.Constants.Swerve s_Swerve2, DoubleSupplier translationSup2, DoubleSupplier strafeSup2,
+            DoubleSupplier rotationSup2, BooleanSupplier robotCentricSup2) {
+    }
+
     @Override
     public void execute() {
         /* Get Values, Deadband*/
@@ -37,8 +41,8 @@ public class TeleopSwerve extends CommandBase {
 
         /* Drive */
         s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.SwerveDrive.maxSpeed), 
-            rotationVal * Constants.SwerveDrive.maxAngularVelocity, 
+            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
+            rotationVal * Constants.Swerve.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true
         );
