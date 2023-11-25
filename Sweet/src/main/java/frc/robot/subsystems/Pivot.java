@@ -32,6 +32,7 @@ public  class Pivot extends SubsystemBase {
          pivotEncoder = pivotMotor.getAbsoluteEncoder(com.revrobotics.SparkMaxAbsoluteEncoder.Type.kDutyCycle);
          pivotPidController = new PIDController(1, 0.1, 0);
          //yeah idk why its red
+         //wwopwow
     }
 
 
