@@ -46,8 +46,8 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
     private final Pivot s_Pivot = new Pivot();
 
-    /* Other Sysyems */
-    //private final AprilTagger tag = new AprilTagger();
+    /* Other Subsystems */
+    private final Limelight limelight = new Limelight();
 
     /* Auto Chooser */
     SendableChooser<Command> s_Chooser = new SendableChooser<>();
@@ -107,7 +107,6 @@ public class RobotContainer {
         goHome.whileTrue(new GoHome(s_Pivot));
  
         /* Test Commands */
-        //tag.apriltagVisionThreadproc();
     }
 
     /**
@@ -116,7 +115,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // An ExampleCommand will run in autonomous
         return s_Chooser.getSelected();
     }
 }
