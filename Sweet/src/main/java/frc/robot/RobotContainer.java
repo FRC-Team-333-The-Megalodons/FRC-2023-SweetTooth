@@ -13,6 +13,7 @@ import frc.robot.commands.IntakeOut;
 import frc.robot.commands.PivotDown;
 import frc.robot.commands.PivotUp;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.autos.justScore;
 import frc.robot.commands.GoHome;
 import frc.robot.commands.GoIntake;
 import frc.robot.subsystems.Intake;
@@ -91,6 +92,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return null;
+        return new justScore(s_Intake);
+    
     }
 }

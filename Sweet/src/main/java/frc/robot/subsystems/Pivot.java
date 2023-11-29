@@ -13,7 +13,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
-import frc.robot.commands.GoIntake;
+import frc.robot.commands.GoHome;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 //import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
@@ -33,6 +33,7 @@ public  class Pivot extends SubsystemBase {
          pivotPidController = new PIDController(1, 0.1, 0);
          //yeah idk why its red
          //wwopwow
+         pivotPidController.enableContinuousInput(0, 1);
     }
 
 
@@ -46,17 +47,37 @@ public  class Pivot extends SubsystemBase {
     public void noPivot() {
         pivotMotor.set(0);
     }
-    
+     /*
+     * - The method getPosition is responsible for the pivot encoder (which is located on the bottom churro of the intake)
+     * it returns the position of the intake. (does it on default)
+     * 
+     * - The method goHome is setting the encoder position to go into the home position
+     * 
+     * - The method goIntake is setting the encoder position to go to a position that is accurate to intake a cube from the flood
+     */
     public double getPosition() {
     return pivotEncoder.getPosition();
   }
     public void goHome(){
-      pivotMotor.set(pivotPidController.calculate(getPosition(), -IntakeConstants.PivotConstants.homeSetpoint));
+      pivotMotor.set(pivotPidController.calculate(getPosition(), IntakeConstants.PivotConstants.homeSetpoint));
     }
     public void goIntake(){
       pivotMotor.set(pivotPidController.calculate(getPosition(), IntakeConstants.PivotConstants.intakeSetpoint));
     }
-  
+     /*
+       * A boolean method that is being implimented in the SmartDashboard, if the encoder more r equal the home setpoint, it 
+       * returns true, otherwise false
+       */
+    public boolean isHome() {
+      if (pivotEncoder.getPosition() >= PivotConstants.homeSetpoint && pivotEncoder.getPosition() >= 0.0406) 
+      { return false; } else { return true; }
+      }
+      public boolean isIntaking() {
+        if (pivotEncoder.getPosition() >= PivotConstants.intakeSetpoint && pivotEncoder.getPosition() >= 0.4242)
+        { return true; } else { return false; }
+        }
+      
+      
         
     /*
     /* //
@@ -65,6 +86,8 @@ public  class Pivot extends SubsystemBase {
      @Override
       public void periodic() {
         SmartDashboard.putNumber("Intake Position", getPosition());
+        SmartDashboard.putBoolean("IsHome?", isHome());
+        SmartDashboard.putBoolean("Isntaking?", isIntaking());
         super.periodic();
       }
 }
