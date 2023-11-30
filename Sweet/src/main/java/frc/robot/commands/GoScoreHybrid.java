@@ -4,15 +4,18 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Intake;
 import frc.robot.subsystems.Pivot;
-public class GoHome extends CommandBase {
+public class GoScoreHybrid extends CommandBase {
 
-  private final Pivot m_pivot;
+  private final Pivot s_Pivot;
+  private final frc.robot.subsystems.Intake s_Intake;
 
-  public GoHome(Pivot pivot) {
+  public GoScoreHybrid(Pivot pivot, frc.robot.subsystems.Intake outake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_pivot = pivot;
-    addRequirements(m_pivot);
+    addRequirements(pivot, outake);
+    this.s_Pivot = pivot;
+    this.s_Intake = outake;
   }
 
   // Called when the command is initially scheduled.
@@ -22,12 +25,14 @@ public class GoHome extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pivot.goHome();
+    s_Pivot.scoreHybrid();
+    s_Intake.outake();
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_pivot.noPivot();
+    s_Pivot.noPivot();
+    s_Intake.noIntake();
   }
 
   // Returns true when the command should end.

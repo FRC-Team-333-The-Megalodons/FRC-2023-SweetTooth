@@ -64,6 +64,9 @@ public  class Pivot extends SubsystemBase {
     public void goIntake(){
       pivotMotor.set(pivotPidController.calculate(getPosition(), IntakeConstants.PivotConstants.intakeSetpoint));
     }
+    public void scoreHybrid(){
+      pivotMotor.set(pivotPidController.calculate(getPosition(), IntakeConstants.PivotConstants.hybridSetpoint));
+    }
      /*
        * A boolean method that is being implimented in the SmartDashboard, if the encoder more r equal the home setpoint, it 
        * returns true, otherwise false
@@ -72,12 +75,14 @@ public  class Pivot extends SubsystemBase {
       if (pivotEncoder.getPosition() >= PivotConstants.homeSetpoint && pivotEncoder.getPosition() >= 0.0406) 
       { return false; } else { return true; }
       }
-      public boolean isIntaking() {
-        if (pivotEncoder.getPosition() >= PivotConstants.intakeSetpoint && pivotEncoder.getPosition() >= 0.4242)
-        { return true; } else { return false; }
-        }
-      
-      
+    public boolean isIntaking() {
+      if (pivotEncoder.getPosition() >= PivotConstants.intakeSetpoint && pivotEncoder.getPosition() >= 0.4242)
+      { return true; } else { return false; }
+      }
+    public boolean isScoringHybrid() {
+      if (pivotEncoder.getPosition() >= PivotConstants.intakeSetpoint && pivotEncoder.getPosition() >= 0.38) 
+      { return true; }  else { return false ; }
+    }
         
     /*
     /* //

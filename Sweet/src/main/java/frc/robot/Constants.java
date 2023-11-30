@@ -13,6 +13,7 @@ import frc.robot.commands.TeleopSwerve;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
+    public static final String SwerveDrive = null;
 
     public static final class Swerve {
         public static final int pigeonID = 2;
@@ -167,6 +168,7 @@ public final class Constants {
                 public static final double pivotSpeed = 0.254;
                 public static final double homeSetpoint = 0.0463;
                 public static final double intakeSetpoint = 0.4242;
+                public static final double hybridSetpoint = 0.3775;
             }
             public static final class IntakeIDs{
             public static final int intakeID = 4;
