@@ -33,10 +33,10 @@
       },
       "nextControl": {
         "x": 3.0,
-        "y": 4.0
+        "y": 6.0
       },
       "holonomicAngle": 0,
-      "isReversal": true,
+      "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,

@@ -19,8 +19,8 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("TX", LimelightHelpers.getTX("limelight"));
-    SmartDashboard.putNumber("TY", LimelightHelpers.getTY("limelight"));
-    SmartDashboard.putNumber("TA", LimelightHelpers.getTA("limelight"));
+    // SmartDashboard.putNumber("TX", LimelightHelpers.getTX("limelight"));
+    // SmartDashboard.putNumber("TY", LimelightHelpers.getTY("limelight"));
+    // SmartDashboard.putNumber("TA", LimelightHelpers.getTA("limelight"));
   }
 }

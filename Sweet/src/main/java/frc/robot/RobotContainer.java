@@ -1,9 +1,5 @@
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.path.PathPlannerPath;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -51,7 +47,7 @@ public class RobotContainer {
     private final Pivot s_Pivot = new Pivot();
 
     /* Other Subsystems */
-    private final Limelight limelight = new Limelight();
+    // private final Limelight limelight = new Limelight();
 
     /* Auto Chooser */
     SendableChooser<Command> s_Chooser = new SendableChooser<>();
@@ -74,32 +70,19 @@ public class RobotContainer {
         //s_Pivot.setDefaultCommand(new GoHome(s_Pivot));
         s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
 
-        // s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
-        // s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
-        // s_Chooser.addOption("Reverse! Reverse!", new ReverseMobility(s_Swerve));
-        // s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAutoDone));
-        // s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
-        // s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
-        // s_Chooser.addOption("Sample", new exampleAuto(s_Swerve));
+        s_Chooser.setDefaultOption("DON'T BLOODY MOVE!!!", null);
+        s_Chooser.addOption("Mobility", new Mobility(s_Swerve));
+        s_Chooser.addOption("Reverse! Reverse!", new ReverseMobility(s_Swerve));
+        s_Chooser.addOption("Mid Shot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAutoDone));
+        s_Chooser.addOption("Charge Station", new ChargeStation(s_Swerve));
+        s_Chooser.addOption("Far Charge", new FarChargeStation(s_Swerve));
+        s_Chooser.addOption("Sample", new exampleAuto(s_Swerve));
 
         // Test Autouns
-        // s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
+        s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
+        s_Chooser.addOption("Path Planner", new PathPlannerTest(s_Swerve));
 
-        // SmartDashboard.putData(s_Chooser);
-
-        // Register Named Commands
-        NamedCommands.registerCommand("Mobility", new Mobility(s_Swerve));
-        NamedCommands.registerCommand("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
-        NamedCommands.registerCommand("Shoot", new EjectCube(s_Intake, IntakeConstants.hightakeSpeed).until(s_Intake::outakeAutoDone));
-        NamedCommands.registerCommand("Intake", new GoIntake(s_Pivot).alongWith(new IntakeCube(s_Intake).until(s_Intake::intakeAutoDone).withTimeout(1)));
-
-        // Build auto chooser
-        p_Chooser = AutoBuilder.buildAutoChooser();
-
-        // Default auto
-        p_Chooser = AutoBuilder.buildAutoChooser("Mobility");
-
-        SmartDashboard.putData("Auto Chooser", p_Chooser);
+        SmartDashboard.putData(s_Chooser);
 
         // Configure the button bindings
         configureButtonBindings();
@@ -134,6 +117,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return p_Chooser.getSelected();
+        return s_Chooser.getSelected();
     }
 }
