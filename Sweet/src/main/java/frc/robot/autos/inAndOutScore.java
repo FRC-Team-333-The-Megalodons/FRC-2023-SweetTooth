@@ -22,10 +22,10 @@ public class inAndOutScore extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new mobility(s_Swerve),
-      new GoIntakeFloor(s_Pivot, s_Intake),
-      new GoHome(s_Pivot),
-      new comeBackMobility(s_Swerve),
-      new scoreHybrid(s_Pivot, s_Intake)
+      //new GoIntakeFloor(s_Pivot, s_Intake),
+      //new GoHome(s_Pivot),
+      new comeBackMobility(s_Swerve)
+      //new scoreHybrid(s_Pivot, s_Intake)
     );
   }
 }

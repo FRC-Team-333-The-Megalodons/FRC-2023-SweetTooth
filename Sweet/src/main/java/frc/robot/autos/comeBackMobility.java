@@ -26,14 +26,14 @@ public comeBackMobility(Swerve s_Swerve){
         new TrajectoryConfig(
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                 Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-            .setKinematics(Constants.Swerve.swerveKinematics);
+            .setKinematics(Constants.Swerve.swerveKinematics).setReversed(true);
 
     Trajectory trajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
             new Pose2d(5, 0, new Rotation2d(0)),
-            List.of(new Translation2d(1, 0), new Translation2d(-4, 0)),
-            new Pose2d(-5, 0, new Rotation2d(296)),
+            List.of(new Translation2d(2, 0), new Translation2d(1, 0)),
+            new Pose2d(0, 0, new Rotation2d(296)),
             config);
 
     var thetaController =

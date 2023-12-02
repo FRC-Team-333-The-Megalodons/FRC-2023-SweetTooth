@@ -119,7 +119,7 @@ public class RobotContainer {
         //return null;
         // return new scoreHybrid(s_Pivot, s_Intake);
         //return new comeBackMobility(s_Swerve);
-        //return new inAndOut(s_Swerve);
-        return new inAndOutScore(s_Swerve, s_Pivot, s_Intake);
+        return new inAndOut(s_Swerve);
+        //return new inAndOutScore(s_Swerve, s_Pivot, s_Intake);
     }
 }
