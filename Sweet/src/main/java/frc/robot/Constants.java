@@ -162,7 +162,7 @@ public final class Constants {
     public static final class Intake {
         public static final class IntakeConstants { 
             public static final double intakeSpeed = 0.334;
-            public static final double outtakeSpeed = 0.333;
+            public static final double outtakeSpeed = 0.133;
             public static final class PivotConstants {
 
                 public static final double pivotSpeed = 0.254;

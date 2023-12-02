@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pivot;
 public class GoIntake extends CommandBase {
-  private final Pivot m_pivot;
+  private final Pivot s_Pivot;
 
   public GoIntake(Pivot pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_pivot = pivot;
-    addRequirements(m_pivot);
+    this.s_Pivot = pivot;
+    addRequirements(s_Pivot);
   }
   
     // Called when the command is initially scheduled.
@@ -22,17 +22,17 @@ public class GoIntake extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-      m_pivot.goIntake();
+      s_Pivot.goIntake();
     }
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-      m_pivot.noPivot();
+      s_Pivot.noPivot();
     }
   
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      return false;
+      return s_Pivot.isIntaking();
     }
 }

@@ -10,7 +10,7 @@ import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.GoScoreHybrid;
 import frc.robot.commands.GoHome;
-import frc.robot.autos.mobility;
+import frc.robot.commands.GoIntake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -27,7 +27,7 @@ public class scoreMobility extends SequentialCommandGroup {
           new GoScoreHybrid(m_Pivot, m_Intake),
           new GoHome(m_Pivot),
           new mobility(m_Mobiloty),
-          new GoHome(m_Pivot)
+          new GoIntake(m_Pivot)
         );
     }
   }

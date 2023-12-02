@@ -4,13 +4,15 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Intake;
 import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Intake;
+import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
+import frc.robot.Constants.Intake.IntakeConstants;
+import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
 public class GoScoreHybrid extends CommandBase {
 
   private final Pivot s_Pivot;
-  private final frc.robot.subsystems.Intake s_Intake;
-
+  private final Intake s_Intake;
   public GoScoreHybrid(Pivot pivot, frc.robot.subsystems.Intake outake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot, outake);
@@ -25,7 +27,7 @@ public class GoScoreHybrid extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_Pivot.scoreHybrid();
+    s_Pivot.goScoreHybrid();
     s_Intake.outake();
   }
   // Called once the command ends or is interrupted.
@@ -38,6 +40,7 @@ public class GoScoreHybrid extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return s_Pivot.isScoringHybrid();
+    }
   }
-}
+

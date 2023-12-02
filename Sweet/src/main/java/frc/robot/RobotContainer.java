@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -13,6 +15,9 @@ import frc.robot.commands.IntakeOut;
 import frc.robot.commands.PivotDown;
 import frc.robot.commands.PivotUp;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.autos.justScore;
+import frc.robot.autos.mobility;
+import frc.robot.autos.scoreHybrid;
 import frc.robot.autos.scoreMobility;
 import frc.robot.commands.GoHome;
 import frc.robot.commands.GoIntake;
@@ -88,15 +93,25 @@ public class RobotContainer {
         goScoreHybrid.whileTrue(new GoScoreHybrid(s_Pivot, s_Intake));
     }
 
+    // smart dashboard stuff 
+    // inseart here 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
+        /*switch (selectedAuto) {
+        case Robot.kNoAuto: return null;
+        case Robot.kMobility: return mobility(s_Swerve);
+        case Robot.justScore: return justScore(s_Intake);
+        case Robot.scoreMobility: return scoreMobility(s_Intake, s_Pivot, s_Swerve);
+*/
         // An ExampleCommand will run in autonomous
         //return new justScore(s_Intake);
-        return new scoreMobility(s_Intake, s_Pivot, s_Swerve);
+        //return new scoreMobility(s_Intake, s_Pivot, s_Swerve);
        // return new mobility(s_Swerve);
+       //return null;
+        return new scoreHybrid(s_Pivot, s_Intake);
     }
 }
