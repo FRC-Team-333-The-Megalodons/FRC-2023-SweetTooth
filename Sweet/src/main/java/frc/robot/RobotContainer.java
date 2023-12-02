@@ -15,8 +15,12 @@ import frc.robot.commands.IntakeOut;
 import frc.robot.commands.PivotDown;
 import frc.robot.commands.PivotUp;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.autos.comeBackMobility;
+import frc.robot.autos.inAndOut;
+import frc.robot.autos.inAndOutScore;
 import frc.robot.autos.justScore;
 import frc.robot.autos.mobility;
+import frc.robot.autos.reverse;
 import frc.robot.autos.scoreHybrid;
 import frc.robot.autos.scoreMobility;
 import frc.robot.commands.GoHome;
@@ -110,8 +114,12 @@ public class RobotContainer {
         // An ExampleCommand will run in autonomous
         //return new justScore(s_Intake);
         //return new scoreMobility(s_Intake, s_Pivot, s_Swerve);
-       // return new mobility(s_Swerve);
-       //return null;
-        return new scoreHybrid(s_Pivot, s_Intake);
+        // return new reverse(s_Swerve);
+        //return new mobiility(s_Swerve)
+        //return null;
+        // return new scoreHybrid(s_Pivot, s_Intake);
+        //return new comeBackMobility(s_Swerve);
+        //return new inAndOut(s_Swerve);
+        return new inAndOutScore(s_Swerve, s_Pivot, s_Intake);
     }
 }

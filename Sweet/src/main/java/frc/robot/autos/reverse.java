@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
-public class mobility extends SequentialCommandGroup {
-    public mobility(Swerve s_Swerve){
+public class reverse extends SequentialCommandGroup {
+    public reverse(Swerve s_Swerve){
         TrajectoryConfig config =
             new TrajectoryConfig(
                     Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -30,7 +30,7 @@ public class mobility extends SequentialCommandGroup {
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(new Translation2d(2, 0), new Translation2d(4, 0)),
-                new Pose2d(5, 0, new Rotation2d(0)),
+                new Pose2d(5, 0, new Rotation2d(64)),
                 config);
 
         var thetaController =
