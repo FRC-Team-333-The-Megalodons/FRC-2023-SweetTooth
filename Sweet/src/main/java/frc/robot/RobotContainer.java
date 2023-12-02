@@ -13,8 +13,6 @@ import frc.robot.commands.IntakeOut;
 import frc.robot.commands.PivotDown;
 import frc.robot.commands.PivotUp;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.autos.justScore;
-import frc.robot.autos.mobility;
 import frc.robot.autos.scoreMobility;
 import frc.robot.commands.GoHome;
 import frc.robot.commands.GoIntake;
@@ -79,7 +77,7 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        /* Driver Buttons */
+        /* Driver Buttons  and their actions*/
        zeroGyro.onTrue(new InstantCommand(()   -> s_Swerve.zeroGyro()));
         pivotButUp.whileTrue(new PivotUp(s_Pivot));
         pivotButDown.whileTrue(new PivotDown(s_Pivot));

@@ -16,7 +16,7 @@ import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
 import frc.robot.commands.GoHome;
 import frc.robot.Constants.Intake.IntakeConstants;
 import frc.robot.Constants.Intake.IntakeConstants.IntakeIDs;
-//import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
+import frc.robot.Constants.Intake.IntakeConstants.PivotConstants;
 
 
 /** Add your docs here. */
