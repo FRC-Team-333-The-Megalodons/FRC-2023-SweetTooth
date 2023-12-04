@@ -1,7 +1,5 @@
 package frc.robot;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -10,22 +8,15 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
-import frc.robot.commands.IntakeIn;
-import frc.robot.commands.IntakeOut;
-import frc.robot.commands.PivotDown;
-import frc.robot.commands.PivotUp;
+import frc.robot.commands.ManualIntake;
+import frc.robot.commands.GoIntakePosition;
+import frc.robot.commands.ManualOutake;
+import frc.robot.commands.ManualPivotDown;
+import frc.robot.commands.ManualPivotUp;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.autos.comeBackMobility;
-import frc.robot.autos.inAndOut;
-import frc.robot.autos.inAndOutScore;
-import frc.robot.autos.justScore;
-import frc.robot.autos.mobility;
-import frc.robot.autos.reverse;
-import frc.robot.autos.scoreHybrid;
-import frc.robot.autos.scoreMobility;
-import frc.robot.commands.GoHome;
-import frc.robot.commands.GoIntake;
+import frc.robot.commands.GoHomePosition;
 import frc.robot.commands.GoScoreHybrid;
+import frc.robot.commands.GoIntakeFloor;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 
@@ -47,7 +38,6 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, PS4Controller.Button.kShare.value);
-    
     private final JoystickButton pivotButUp = new JoystickButton(driver, PS4Controller.Button.kTriangle.value);
     public final JoystickButton pivotButDown = new JoystickButton(driver, PS4Controller.Button.kCircle.value);
     public final JoystickButton intakeButIn = new JoystickButton(driver, PS4Controller.Button.kR1.value);
@@ -55,6 +45,7 @@ public class RobotContainer {
     public final JoystickButton goHome = new JoystickButton(driver, PS4Controller.Button.kR2.value);
     public final JoystickButton goIntake = new JoystickButton(driver, PS4Controller.Button.kL2.value);
     public final JoystickButton goScoreHybrid = new JoystickButton(driver, PS4Controller.Button.kSquare.value);
+    public final JoystickButton goIntakeFloor = new JoystickButton(driver, PS4Controller.Button.kTouchpad.value);
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -67,7 +58,7 @@ public class RobotContainer {
          s_Pivot.setDefaultCommand(new RunCommand(() -> s_Pivot.noPivot(), s_Pivot));
          s_Intake.setDefaultCommand(new RunCommand(() -> s_Intake.noIntake(), s_Intake));
 
-        s_Swerve.setDefaultCommand(
+         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
                 () -> -driver.getRawAxis(translationAxis), 
@@ -77,8 +68,6 @@ public class RobotContainer {
             )
         );
     }
-
-
     /**
      * Use this method to define your button->command mappings. Buttons can be created by[]
      * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -88,38 +77,29 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons  and their actions*/
        zeroGyro.onTrue(new InstantCommand(()   -> s_Swerve.zeroGyro()));
-        pivotButUp.whileTrue(new PivotUp(s_Pivot));
-        pivotButDown.whileTrue(new PivotDown(s_Pivot));
-        intakeButIn.whileTrue(new IntakeIn(s_Intake));
-        intakButeOut.whileTrue(new IntakeOut(s_Intake));
-        goHome.whileTrue(new GoHome (s_Pivot));
-        goIntake.whileTrue(new GoIntake(s_Pivot));
+        pivotButUp.whileTrue(new ManualPivotUp(s_Pivot));
+        pivotButDown.whileTrue(new ManualPivotDown(s_Pivot));
+        intakeButIn.whileTrue(new ManualIntake(s_Intake));
+        intakButeOut.whileTrue(new ManualOutake(s_Intake));
+        goHome.whileTrue(new GoHomePosition (s_Pivot));
+        goIntake.whileTrue(new GoIntakePosition(s_Pivot));
         goScoreHybrid.whileTrue(new GoScoreHybrid(s_Pivot, s_Intake));
+        goIntakeFloor.whileTrue(new GoIntakeFloor(s_Pivot, s_Intake));
     }
-
-    // smart dashboard stuff 
-    // inseart here 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        /*switch (selectedAuto) {
-        case Robot.kNoAuto: return null;
-        case Robot.kMobility: return mobility(s_Swerve);
-        case Robot.justScore: return justScore(s_Intake);
-        case Robot.scoreMobility: return scoreMobility(s_Intake, s_Pivot, s_Swerve);
-*/
-        // An ExampleCommand will run in autonomous
+        return null;
+        // return new scoreHybrid(s_Pivot, s_Intake);
+        //return new comeBackMobility(s_Swerve);
+        //return new ComeOutAndBAckMobility(s_Swerve);
+        //return new inAndOutScore(s_Swerve, s_Pivot, s_Intake);
         //return new justScore(s_Intake);
         //return new scoreMobility(s_Intake, s_Pivot, s_Swerve);
         // return new reverse(s_Swerve);
         //return new mobiility(s_Swerve)
-        //return null;
-        // return new scoreHybrid(s_Pivot, s_Intake);
-        //return new comeBackMobility(s_Swerve);
-        return new inAndOut(s_Swerve);
-        //return new inAndOutScore(s_Swerve, s_Pivot, s_Intake);
     }
 }

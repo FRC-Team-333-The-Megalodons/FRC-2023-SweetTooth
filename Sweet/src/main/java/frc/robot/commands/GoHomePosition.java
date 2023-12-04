@@ -5,32 +5,31 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pivot;
-public class GoHome extends CommandBase {
-
+/*
+ * This command is bringing the pivot to the home position 
+ * On hold kR2
+ */
+public class GoHomePosition extends CommandBase {
   private final Pivot s_Pivot;
 
-  public GoHome(Pivot pivot) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public GoHomePosition(Pivot pivot) {
     this.s_Pivot = pivot;
     addRequirements(s_Pivot);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     s_Pivot.goHome();
   }
-  // Called once the command ends or is interrupted.
+
   @Override
   public void end(boolean interrupted) {
     s_Pivot.noPivot();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return s_Pivot.isHome();

@@ -6,31 +6,31 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pivot;
-public class GoIntake extends CommandBase {
+public class GoIntakePosition extends CommandBase {
   private final Pivot s_Pivot;
 
-  public GoIntake(Pivot pivot) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  /*
+   * This class is bringing pivot to the intake position 
+   * runs on hold kL2
+   */
+  public GoIntakePosition(Pivot pivot) {
     this.s_Pivot = pivot;
     addRequirements(s_Pivot);
   }
   
-    // Called when the command is initially scheduled.
     @Override
     public void initialize() {}
   
-    // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
       s_Pivot.goIntake();
     }
-    // Called once the command ends or is interrupted.
+
     @Override
     public void end(boolean interrupted) {
       s_Pivot.noPivot();
     }
   
-    // Returns true when the command should end.
     @Override
     public boolean isFinished() {
       return s_Pivot.isIntaking();

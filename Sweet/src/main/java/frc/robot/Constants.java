@@ -153,7 +153,7 @@ public final class Constants {
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
-                kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+            kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
         public static final double midIntakeSetpoint = 20;
         public static final double highIntakeSetpoint = 40;
@@ -165,6 +165,7 @@ public final class Constants {
         public static final double mobilityDistance = Units.inchesToMeters(stickDeadband);
     }
     public static final class Intake {
+        /* Intake, Pivot Constants */
         public static final class IntakeConstants { 
             public static final double intakeSpeed = 0.334;
             public static final double outtakeSpeed = 0.133;
@@ -178,7 +179,6 @@ public final class Constants {
             public static final class IntakeIDs{
             public static final int intakeID = 4;
             public static final int pivotID = 3;
-//*kys */
             }
         }
     }

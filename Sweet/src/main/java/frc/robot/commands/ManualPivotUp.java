@@ -6,34 +6,31 @@ package frc.robot.commands;
 import frc.robot.subsystems.Pivot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class PivotUp extends CommandBase {
-  /** Creates a new PivotUp. */
+/* 
+ * this command is in charge of pivot going manualy Up
+ * runs on while hold kTriangle
+ */
+public class ManualPivotUp extends CommandBase {
   private final Pivot s_Pivot;
 
-  public PivotUp(Pivot pivot) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public ManualPivotUp(Pivot pivot) {
     addRequirements(pivot);
     this.s_Pivot = pivot;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     s_Pivot.pivotUp();
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     s_Pivot.noPivot();
   }
 
-  // Returns true when the command should end.
-  @Override
   public boolean isFinished() {
     return false;
   }

@@ -9,25 +9,21 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.GoScoreHybrid;
-import frc.robot.commands.GoHome;
-import frc.robot.commands.GoIntake;
+import frc.robot.commands.GoHomePosition;
+import frc.robot.commands.GoIntakeFloor;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class scoreMobility extends SequentialCommandGroup {
-  public scoreMobility(Intake m_Intake, Pivot m_Pivot, Swerve m_Mobiloty) {
+public class ScoreMobility extends SequentialCommandGroup {
+  public ScoreMobility(Intake m_Intake, Pivot m_Pivot, Swerve m_Mobiloty) {
   }
 
-  /** Creates a new scoreMobility. */
+
   public class justScore extends SequentialCommandGroup {
     public justScore(Intake m_Intake, Pivot m_Pivot, Swerve m_Mobiloty) {
         addCommands(
-          //new GoHome(m_Pivot),
           new GoScoreHybrid(m_Pivot, m_Intake),
-          new GoHome(m_Pivot),
-          new mobility(m_Mobiloty),
-          new GoIntake(m_Pivot)
+          new GoHomePosition(m_Pivot),
+          new Mobility(m_Mobiloty),
+          new GoIntakeFloor(m_Pivot, m_Intake)
         );
     }
   }

@@ -7,33 +7,31 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class IntakeIn extends CommandBase {
-  // Make your subsystem object here
+/*
+ * Command is in charge of manual intake in
+ * runs on hold kR1
+ */
+public class ManualIntake extends CommandBase {
   private final Intake s_Intake;
 
-  public IntakeIn(Intake intake) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public ManualIntake(Intake intake) {
     addRequirements(intake);
     this.s_Intake = intake;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled. Ths is where you methods are ran
   @Override
   public void execute() {
     s_Intake.intake();
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     s_Intake.noIntake();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
