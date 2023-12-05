@@ -3,46 +3,50 @@
     {
       "anchorPoint": {
         "x": 1.8,
-        "y": 4.45980538661585
+        "y": 3.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8000000000000007,
-        "y": 4.45980538661585
+        "x": 2.8477160918908266,
+        "y": 3.1
       },
-      "holonomicAngle": 0,
+      "holonomicAngle": -180.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
+        "names": [
+          "Eject Cube"
+        ],
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
     },
     {
       "anchorPoint": {
-        "x": 4.0,
-        "y": 4.46
+        "x": 5.588610962552874,
+        "y": 3.097515747804305
       },
       "prevControl": {
-        "x": 4.487650804743231,
-        "y": 4.455930834501263
+        "x": 6.076278744423459,
+        "y": 3.097515747804305
       },
       "nextControl": {
-        "x": 4.487650804743231,
-        "y": 4.455930834501263
+        "x": 5.100943180682289,
+        "y": 3.097515747804305
       },
-      "holonomicAngle": 0,
-      "isReversal": true,
+      "holonomicAngle": 0.0,
+      "isReversal": false,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
+        "names": [
+          "Intake Cube"
+        ],
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
@@ -50,20 +54,22 @@
     {
       "anchorPoint": {
         "x": 1.8,
-        "y": 4.46
+        "y": 3.1
       },
       "prevControl": {
-        "x": 2.8,
-        "y": 4.46
+        "x": 0.7365905219075224,
+        "y": 3.1
       },
       "nextControl": null,
-      "holonomicAngle": 0,
+      "holonomicAngle": -180.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Eject Cube"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
