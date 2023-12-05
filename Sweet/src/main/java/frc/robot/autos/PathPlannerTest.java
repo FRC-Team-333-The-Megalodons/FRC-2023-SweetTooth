@@ -1,7 +1,10 @@
 package frc.robot.autos;
 
 import frc.robot.Constants;
+import frc.robot.Constants.Intake.IntakeConstants;
+import frc.robot.commands.EjectCube;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.Intake;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
@@ -14,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class PathPlannerTest extends SequentialCommandGroup {
-    public PathPlannerTest(Swerve s_Swerve){
+    public PathPlannerTest(Swerve s_Swerve, Intake intake){
 
         PathPlannerTrajectory examplePath = PathPlanner.loadPath("Example Path", new PathConstraints(4, 3));
 
@@ -37,7 +40,8 @@ public class PathPlannerTest extends SequentialCommandGroup {
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(examplePath.getInitialPose())),
-            swerveControllerCommand
+            swerveControllerCommand,
+            new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone)
         );
     }
 }

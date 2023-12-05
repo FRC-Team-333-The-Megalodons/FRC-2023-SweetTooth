@@ -80,7 +80,7 @@ public class RobotContainer {
 
         // Test Autouns
         s_Chooser.addOption("Test", new TestingAutons(s_Swerve, s_Pivot, s_Intake));
-        s_Chooser.addOption("Path Planner", new PathPlannerTest(s_Swerve));
+        s_Chooser.addOption("Path Planner", new PathPlannerTest(s_Swerve, s_Intake));
 
         SmartDashboard.putData(s_Chooser);
 
