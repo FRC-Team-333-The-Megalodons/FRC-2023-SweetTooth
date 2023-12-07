@@ -14,6 +14,7 @@ import com.pathplanner.lib.commands.FollowPathWithEvents;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -27,7 +28,7 @@ public class MultiPath extends SequentialCommandGroup {
   /** Creates a new MultiPath. */
   public MultiPath(Swerve swerve, Intake intake) {
 
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("Forward Backward", new PathConstraints(4, 3));
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("Forward Backward", new PathConstraints(3, 2));
 
     HashMap<String, Command> eventMap = new HashMap<>();
     eventMap.put("marker1", new PrintCommand("Passed Marker 1"));
@@ -56,6 +57,9 @@ public class MultiPath extends SequentialCommandGroup {
       eventMap
     );
         
-    addCommands(command);
+    addCommands(
+      new InstantCommand(() -> swerve.resetOdometry(examplePath.getInitialPose())),
+      command
+      );
   }
 }
