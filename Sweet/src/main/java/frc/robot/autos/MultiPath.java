@@ -9,6 +9,8 @@ import java.util.HashMap;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -32,8 +34,6 @@ public class MultiPath extends SequentialCommandGroup {
 
     HashMap<String, Command> eventMap = new HashMap<>();
     eventMap.put("marker1", new PrintCommand("Passed Marker 1"));
-    eventMap.put("Eject Cube", new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone));
-    eventMap.put("Intake Cube", new IntakeCube(intake).until(intake::intakeAutoDone));
 
     var thetaController =
     new ProfiledPIDController(
@@ -58,8 +58,10 @@ public class MultiPath extends SequentialCommandGroup {
     );
         
     addCommands(
-      new InstantCommand(() -> swerve.resetOdometry(examplePath.getInitialPose())),
-      command
+      new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone),
+      new InstantCommand(() -> swerve.resetOdometry(examplePath.getInitialHolonomicPose())),
+      swerveControllerCommand,
+      new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone)
       );
   }
 }
