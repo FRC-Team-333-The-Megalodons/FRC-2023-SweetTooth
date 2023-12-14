@@ -30,7 +30,8 @@ public class MultiPath extends SequentialCommandGroup {
   /** Creates a new MultiPath. */
   public MultiPath(Swerve swerve, Intake intake) {
 
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("Forward Backward", new PathConstraints(3, 2));
+    PathPlannerTrajectory path1 = PathPlanner.loadPath("Forward", new PathConstraints(3, 2));
+    PathPlannerTrajectory path2 = PathPlanner.loadPath("Backward", new PathConstraints(3, 2));
 
     HashMap<String, Command> eventMap = new HashMap<>();
     eventMap.put("marker1", new PrintCommand("Passed Marker 1"));
@@ -40,9 +41,9 @@ public class MultiPath extends SequentialCommandGroup {
         Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand =
+    SwerveControllerCommand swerveControllerCommand1 =
         new SwerveControllerCommand(
-            examplePath,
+            path1,
             swerve::getPose,
             Constants.SwerveDrive.swerveKinematics,
             new PIDController(Constants.AutoConstants.kPXController, 0, 0),
@@ -50,17 +51,29 @@ public class MultiPath extends SequentialCommandGroup {
             thetaController,
             swerve::setModuleStates,
             swerve);
+    SwerveControllerCommand swerveControllerCommand2 =
+      new SwerveControllerCommand(
+          path2,
+          swerve::getPose,
+          Constants.SwerveDrive.swerveKinematics,
+          new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+          new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+          thetaController,
+          swerve::setModuleStates,
+          swerve);
 
-    FollowPathWithEvents command = new FollowPathWithEvents(
-      swerveControllerCommand, 
-      examplePath.getMarkers(), 
-      eventMap
-    );
+    // FollowPathWithEvents command = new FollowPathWithEvents(
+    //   swerveControllerCommand, 
+    //   path1.getMarkers(), 
+    //   eventMap
+    // );
         
     addCommands(
       new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone),
-      new InstantCommand(() -> swerve.resetOdometry(examplePath.getInitialHolonomicPose())),
-      swerveControllerCommand,
+      new InstantCommand(() -> swerve.resetOdometry(path1.getInitialHolonomicPose())),
+      swerveControllerCommand1,
+      new IntakeCube(intake).until(intake::intakeAutoDone),
+      swerveControllerCommand2,
       new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone)
       );
   }
