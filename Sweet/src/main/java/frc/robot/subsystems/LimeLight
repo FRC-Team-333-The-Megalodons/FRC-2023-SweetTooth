@@ -49,7 +49,7 @@ public class LimeLight extends SubsystemBase {
   @Override
   public void periodic() {
 
-    /*
+    
     x = tx.getDouble(0); // Max value : 24
     y = ty.getDouble(0); // Max value : 27
     // Get's x and y values
@@ -59,19 +59,13 @@ public class LimeLight extends SubsystemBase {
     targetDistance = (targetHeight / Math.tan(angletoRad));
 
     if ((targetDistance < 35) || (targetDistance > 36 && targetDistance < 41)) {
-      if(x > -7 && x < 7) // ADJUST THESE VALUES IN ORDER TO INCREASE ACCURANCY FOR ALIGNMENT. REQUIRES AT LEAST A 7 DEGREE TOLERANCE AREA.
-      {
-        inRange = true;
-      }
-      inRange = false;
-    } else {
-      inRange = false;
-    }
+      if(x > -7 && x < 7)
+      { inRange = true; }inRange = false;} else { inRange = false;}
     
-    //SmartDashboard.putNumber("LimelightXangle", x);
-    //SmartDashboard.putNumber("LimelightYangle", y);
-    //SmartDashboard.putNumber("LimeLightDistance", targetDistance);//distance in inches
-    //SmartDashboard.putBoolean("Is_In_Range", inRange);
-    */
+    SmartDashboard.putNumber("LimelightXangle", x);
+    SmartDashboard.putNumber("LimelightYangle", y);
+    SmartDashboard.putNumber("LimeLightDistance", targetDistance);//distance in inches
+    SmartDashboard.putBoolean("Is_In_Range", inRange);
+    
   }
 }
