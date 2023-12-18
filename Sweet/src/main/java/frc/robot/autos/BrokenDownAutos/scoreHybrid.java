@@ -4,6 +4,7 @@
 
 package frc.robot.autos.BrokenDownAutos;
 import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Swerve;
 import frc.robot.commands.GoHomePosition;
 import frc.robot.commands.GoScoreHybrid;
 import frc.robot.subsystems.Intake;
@@ -16,4 +17,7 @@ public class scoreHybrid extends SequentialCommandGroup {
       new GoHomePosition(m_Pivot)
     );
   }
+
+public scoreHybrid(Swerve s_Swerve, Intake s_Intake, Pivot s_Pivot) {
+}
 }
