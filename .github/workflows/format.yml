@@ -7,7 +7,7 @@ on:
       - main
 name: ci
 jobs:
-  add-license:
+  apply-format:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
