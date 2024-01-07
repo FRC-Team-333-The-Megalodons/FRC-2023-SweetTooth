@@ -23,6 +23,10 @@ jobs:
         run: ./gradlew spotlessApply
       - uses: googleapis/code-suggester@v2
         with:
-          command: review
+          command: pr
+          message: Fix formatting
+          description: Fix formatting
+          title: Fix formatting
           pull_number: ${{ github.event.pull_request.number }}
+          branch: ${{ github.event.pull_request.number }}-format
           git_dir: '.'
