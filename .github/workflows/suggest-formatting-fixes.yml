@@ -13,16 +13,32 @@ jobs:
       ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fetch all history and metadata
+        run: |
+          git fetch --prune --unshallow
+          git checkout -b pr
+          git branch -f main origin/main
+      - name: Checkout PR
+        run: |
+          gh pr checkout $NUMBER
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          NUMBER: ${{ github.event.number }}
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Check licenses
+      - name: Run spotlessApply
         run: ./gradlew spotlessApply
-      - uses: googleapis/code-suggester@v2
-        with:
-          command: review
-          pull_number: ${{ github.event.pull_request.number }}
-          git_dir: '.'
+      - name: Commit
+        run: |
+          # Set credentials
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Commit
+          git commit -am "Formatting fixes"
+          git push
