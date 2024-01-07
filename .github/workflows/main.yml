@@ -1,0 +1,42 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: wpilib/roborio-cross-ubuntu:2024-22.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Add repository to git safe directories
+      run: git config --global --add safe.directory $GITHUB_WORKSPACE
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Compile and run tests on robot code
+      id: build
+      run: ./gradlew build
+  suggest-formatting-fixes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    env:
+      ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Check licenses
+        run: ./gradlew spotlessApply
+      - uses: googleapis/code-suggester@v2
+        with:
+          command: review
+          pull_number: ${{ github.event.pull_request.number }}
+          git_dir: '.'
