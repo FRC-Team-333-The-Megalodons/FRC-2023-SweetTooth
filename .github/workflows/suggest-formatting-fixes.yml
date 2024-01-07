@@ -23,6 +23,6 @@ jobs:
         run: ./gradlew spotlessApply
       - uses: googleapis/code-suggester@v2
         with:
-          command: review
+          command: pr
           pull_number: ${{ github.event.pull_request.number }}
           git_dir: '.'
