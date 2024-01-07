@@ -4,12 +4,9 @@
 
 package frc.robot.autos;
 
-import java.util.HashMap;
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +20,8 @@ import frc.robot.commands.EjectCube;
 import frc.robot.commands.IntakeCube;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
+import java.util.HashMap;
+
 public class MultiPath extends SequentialCommandGroup {
   /** Creates a new MultiPath. */
   public MultiPath(Swerve swerve, Intake intake) {
@@ -34,8 +33,11 @@ public class MultiPath extends SequentialCommandGroup {
     eventMap.put("marker1", new PrintCommand("Passed Marker 1"));
 
     var thetaController =
-    new ProfiledPIDController(
-        Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
+        new ProfiledPIDController(
+            Constants.AutoConstants.kPThetaController,
+            0,
+            0,
+            Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     SwerveControllerCommand swerveControllerCommand1 =
@@ -49,29 +51,28 @@ public class MultiPath extends SequentialCommandGroup {
             swerve::setModuleStates,
             swerve);
     SwerveControllerCommand swerveControllerCommand2 =
-      new SwerveControllerCommand(
-          path2,
-          swerve::getPose,
-          Constants.SwerveDrive.swerveKinematics,
-          new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-          new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-          thetaController,
-          swerve::setModuleStates,
-          swerve);
+        new SwerveControllerCommand(
+            path2,
+            swerve::getPose,
+            Constants.SwerveDrive.swerveKinematics,
+            new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+            new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+            thetaController,
+            swerve::setModuleStates,
+            swerve);
 
     // FollowPathWithEvents command = new FollowPathWithEvents(
-    //   swerveControllerCommand, 
-    //   path1.getMarkers(), 
+    //   swerveControllerCommand,
+    //   path1.getMarkers(),
     //   eventMap
     // );
-        
+
     addCommands(
-      new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone),
-      new InstantCommand(() -> swerve.resetOdometry(path1.getInitialHolonomicPose())),
-      swerveControllerCommand1,
-      new IntakeCube(intake).until(intake::intakeAutoDone),
-      swerveControllerCommand2,
-      new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone)
-      );
+        new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone),
+        new InstantCommand(() -> swerve.resetOdometry(path1.getInitialHolonomicPose())),
+        swerveControllerCommand1,
+        new IntakeCube(intake).until(intake::intakeAutoDone),
+        swerveControllerCommand2,
+        new EjectCube(intake, IntakeConstants.midtakeSpeed).until(intake::outakeAutoDone));
   }
 }

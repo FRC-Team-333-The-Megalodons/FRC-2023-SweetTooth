@@ -8,7 +8,6 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,13 +21,15 @@ public class Pivot extends SubsystemBase {
   private AbsoluteEncoder pivotEncoder;
   private DigitalInput limitSwitch;
 
-  private PIDController pivotController = new PIDController(PivotConstants.pivotKP, PivotConstants.pivotKI, PivotConstants.pivotkKD);
+  private PIDController pivotController =
+      new PIDController(PivotConstants.pivotKP, PivotConstants.pivotKI, PivotConstants.pivotkKD);
 
   /** Creates a new Pivot. */
   public Pivot() {
 
     pivotMotor = new CANSparkMax(IntakeIDs.pivotID, MotorType.kBrushless);
-    pivotEncoder = pivotMotor.getAbsoluteEncoder(com.revrobotics.SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+    pivotEncoder =
+        pivotMotor.getAbsoluteEncoder(com.revrobotics.SparkMaxAbsoluteEncoder.Type.kDutyCycle);
     limitSwitch = new DigitalInput(0);
 
     pivotMotor.setIdleMode(IdleMode.kBrake);
@@ -38,17 +39,39 @@ public class Pivot extends SubsystemBase {
     pivotMotor.burnFlash();
 
     pivotController.enableContinuousInput(0, 1);
-
   }
 
-  public void pivotUp() { pivotMotor.set(PivotConstants.pivotSpeed); }
-  public void pivotDown() { pivotMotor.set(-PivotConstants.pivotSpeed); }
-  public void noPivot() { pivotMotor.set(0); }
+  public void pivotUp() {
+    pivotMotor.set(PivotConstants.pivotSpeed);
+  }
 
-  public void pivotToIntake() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint)); }
-  public void pivotToMid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.midSetpoint)); }
-  public void pivotToHybrid() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.hybridSetpoint)); }
-  public void pivotHome() { pivotMotor.set(pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint)); }
+  public void pivotDown() {
+    pivotMotor.set(-PivotConstants.pivotSpeed);
+  }
+
+  public void noPivot() {
+    pivotMotor.set(0);
+  }
+
+  public void pivotToIntake() {
+    pivotMotor.set(
+        pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.intakeSetpoint));
+  }
+
+  public void pivotToMid() {
+    pivotMotor.set(
+        pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.midSetpoint));
+  }
+
+  public void pivotToHybrid() {
+    pivotMotor.set(
+        pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.hybridSetpoint));
+  }
+
+  public void pivotHome() {
+    pivotMotor.set(
+        pivotController.calculate(pivotEncoder.getPosition(), PivotConstants.homeSetpoint));
+  }
 
   // TODO: find a better implementation for the boolean methods (switch?)
   public boolean isHome() {
@@ -60,7 +83,8 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean atIntakeSetpoint() {
-    if (pivotEncoder.getPosition() >= PivotConstants.intakeSetpoint && pivotEncoder.getPosition() < 0.5) {
+    if (pivotEncoder.getPosition() >= PivotConstants.intakeSetpoint
+        && pivotEncoder.getPosition() < 0.5) {
       return true;
     } else {
       return false;
@@ -68,7 +92,8 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean atHybridSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint && pivotEncoder.getPosition() > PivotConstants.midSetpoint) {
+    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint
+        && pivotEncoder.getPosition() > PivotConstants.midSetpoint) {
       return true;
     } else {
       return false;
@@ -76,7 +101,8 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean atMidSetpoint() {
-    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint && pivotEncoder.getPosition() > PivotConstants.homeSetpoint) {
+    if (pivotEncoder.getPosition() <= PivotConstants.hybridSetpoint
+        && pivotEncoder.getPosition() > PivotConstants.homeSetpoint) {
       return true;
     } else {
       return false;
@@ -87,8 +113,9 @@ public class Pivot extends SubsystemBase {
     return pivotEncoder.getPosition();
   }
 
-  public boolean getLimit() { return limitSwitch.get(); }
-
+  public boolean getLimit() {
+    return limitSwitch.get();
+  }
 
   @Override
   public void periodic() {
@@ -100,6 +127,9 @@ public class Pivot extends SubsystemBase {
   }
 
   public enum Setpoints {
-    HOME, INTAKE, HYBRID, MID;
+    HOME,
+    INTAKE,
+    HYBRID,
+    MID;
   }
 }

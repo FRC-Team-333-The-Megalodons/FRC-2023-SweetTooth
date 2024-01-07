@@ -4,8 +4,6 @@
 
 package frc.robot.autos;
 
-import java.util.List;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -22,29 +20,34 @@ import frc.robot.commands.EjectCube;
 import frc.robot.commands.GoHome;
 import frc.robot.commands.GoIntake;
 import frc.robot.commands.IntakeCube;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Swerve;
-import frc.robot.subsystems.Intake;
+import java.util.List;
 
 public class TestingAutons extends SequentialCommandGroup {
   /** Creates a new TestingAutons. */
   public TestingAutons(Swerve swerve, Pivot pivot, Intake intake) {
     TrajectoryConfig config =
-            new TrajectoryConfig(
-                    Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                    Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                .setKinematics(Constants.SwerveDrive.swerveKinematics).setReversed(true);
+        new TrajectoryConfig(
+                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            .setKinematics(Constants.SwerveDrive.swerveKinematics)
+            .setReversed(true);
 
     Trajectory trajectory =
         TrajectoryGenerator.generateTrajectory(
-          new Pose2d(5, 0, new Rotation2d(0)),
+            new Pose2d(5, 0, new Rotation2d(0)),
             List.of(new Translation2d(3, 0), new Translation2d(1, 0)),
             new Pose2d(0, 0, new Rotation2d(-2.7)),
             config);
 
     var thetaController =
         new ProfiledPIDController(
-            Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
+            Constants.AutoConstants.kPThetaController,
+            0,
+            0,
+            Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     SwerveControllerCommand swerveControllerCommand =
@@ -59,12 +62,12 @@ public class TestingAutons extends SequentialCommandGroup {
             swerve);
 
     addCommands(
-      new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAutoDone),
-      new Mobility(swerve),
-      new GoIntake(pivot).alongWith(new IntakeCube(intake).until(intake::intakeAutoDone).withTimeout(1)),
-      new GoHome(pivot),
-      swerveControllerCommand,
-      new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAutoDone)
-    );
+        new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAutoDone),
+        new Mobility(swerve),
+        new GoIntake(pivot)
+            .alongWith(new IntakeCube(intake).until(intake::intakeAutoDone).withTimeout(1)),
+        new GoHome(pivot),
+        swerveControllerCommand,
+        new EjectCube(intake, IntakeConstants.hightakeSpeed).until(intake::outakeAutoDone));
   }
 }
