@@ -28,7 +28,7 @@ public class Balance extends CommandBase {
     swerve.drive(null, 0, isFinished(), isFinished());
   }
 
-  // Called once the command ends or is interrupted.we    
+  // Called once the command ends or is interrupted.we
   @Override
   public void end(boolean interrupted) {}
 
