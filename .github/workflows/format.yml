@@ -24,7 +24,7 @@ jobs:
           java-version: '17'
           cache: 'gradle'
       - name: Check licenses
-        run: ./gradlew licenseFormat
+        run: ./gradlew spotlessApply
       - uses: googleapis/code-suggester@v2 # takes the changes from git directory
         with:
           command: review
