@@ -25,7 +25,7 @@ jobs:
           gh pr checkout $NUMBER
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          NUMBER: ${{ github.event.issue.number }}
+          NUMBER: ${{ github.event.number }}
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
