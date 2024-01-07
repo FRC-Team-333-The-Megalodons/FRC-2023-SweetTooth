@@ -1,11 +1,11 @@
 name: Check Formatting
 
 on:
-  pull_request_target:
-    types: [opened, synchronize]
-    branches:
-      - main
-name: ci
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   apply-format:
     runs-on: ubuntu-latest
