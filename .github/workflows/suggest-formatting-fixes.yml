@@ -24,5 +24,6 @@ jobs:
       - uses: googleapis/code-suggester@v2
         with:
           command: pr
+          message: Fix formatting
           pull_number: ${{ github.event.pull_request.number }}
           git_dir: '.'
