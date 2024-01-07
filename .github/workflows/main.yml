@@ -18,7 +18,7 @@ jobs:
       run: chmod +x gradlew
     - name: Compile and run tests on robot code
       run: ./gradlew build
-  apply-formatting-fixes:
+  suggest-formatting-fixes:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
