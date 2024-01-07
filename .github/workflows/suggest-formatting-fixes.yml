@@ -26,5 +26,6 @@ jobs:
           command: pr
           message: Fix formatting
           description: Fix formatting
+          title: Fix formatting
           pull_number: ${{ github.event.pull_request.number }}
           git_dir: '.'
