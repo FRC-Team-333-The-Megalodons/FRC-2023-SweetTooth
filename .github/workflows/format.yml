@@ -14,18 +14,20 @@ jobs:
     env:
       ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'zulu'
           java-version: '17'
           cache: 'gradle'
+      - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
       - name: Check licenses
         run: ./gradlew spotlessApply
-      - uses: googleapis/code-suggester@v2 # takes the changes from git directory
+      - uses: googleapis/code-suggester@v2
         with:
           command: review
           pull_number: ${{ github.event.pull_request.number }}
