@@ -7,7 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class EjectCube extends CommandBase {
+public class EjectCube extends CommandBase 
+{
 
   private final Intake m_intake;
   private final double value;
